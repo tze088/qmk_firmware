@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
+
 /*
  * Pin configuration for ATMega32U4
  *
@@ -153,7 +154,7 @@ uint8_t matrix_scan(void)
             // Ignore if this code region execution time elapses more than 20us.
             // MEMO: 20[us] * (TIMER_RAW_FREQ / 1000000)[count per us]
             // MEMO: then change above using this rule: a/(b/c) = a*1/(b/c) = a*(c/b)
-            if (TIMER_DIFF_RAW(TIMER_RAW, last) > 20/(1000000/TIMER_RAW_FREQ)) {
+            if (TIMER_DIFF_RAW(TIMER_RAW, last) > 4/(1000000/TIMER_RAW_FREQ)) {
                 matrix[row] = matrix_prev[row];
             }
 
@@ -161,7 +162,7 @@ uint8_t matrix_scan(void)
 
             // NOTE: KEY_STATE keep its state in 20us after KEY_ENABLE.
             // This takes 25us or more to make sure KEY_STATE returns to idle state.
-			_delay_us(17);
+            _delay_us(17);
         }
         if (matrix[row] ^ matrix_prev[row]) {
             matrix_last_modified = timer_read32();
