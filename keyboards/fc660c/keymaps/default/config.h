@@ -21,4 +21,7 @@
 
 // place overrides here
 
+#define ACTUATION_DEPTH_ADJUSTMENT -2
+#define FORCE_NKRO
+
 #endif
