@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x660C
 #define DEVICE_VER      0x0100
-#define MANUFACTURER    Leopold
-#define PRODUCT         Leopold FC660C QMK
+#define MANUFACTURER    QMK
+#define PRODUCT         Leopold FC660C with QMK
 #define DESCRIPTION     Leopold FC660C with Hasu alternative controller using QMK
 
 /* key matrix size */
@@ -84,6 +84,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // too high and keys will fail to actuate. too low and keys will actuate spontaneously.
 // test all keys before further adjustment.
 // this should probably stay in the range +/-5.
-#define ACTUATION_DEPTH_ADJUSTMENT -2
+// #define ACTUATION_DEPTH_ADJUSTMENT 0
 
 #endif
