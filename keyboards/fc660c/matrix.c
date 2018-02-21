@@ -136,23 +136,13 @@ uint8_t matrix_scan(void)
         for (row = 0; row < MATRIX_ROWS; row++) {
             //KEY_SELECT(row, col);
             SET_ROW(row);
-            _delay_us(2);
-
-            // Not sure this is needed. This just emulates HHKB controller's behaviour.
-            if (matrix_prev[row] & (1<<col)) {
-                KEY_HYS_ON();
-            }
-            _delay_us(10);
-
+            
             // NOTE: KEY_STATE is valid only in 20us after KEY_ENABLE.
             // If V-USB interrupts in this section we could lose 40us or so
             // and would read invalid value from KEY_STATE.
             uint8_t last = TIMER_RAW;
 
             KEY_ENABLE();
-
-            // Wait for KEY_STATE outputs its value.
-            _delay_us(2);
 
             if (KEY_STATE()) {
                 matrix[row] &= ~(1<<col);
@@ -167,13 +157,11 @@ uint8_t matrix_scan(void)
                 matrix[row] = matrix_prev[row];
             }
 
-            _delay_us(5);
-            KEY_HYS_OFF();
             KEY_UNABLE();
 
             // NOTE: KEY_STATE keep its state in 20us after KEY_ENABLE.
             // This takes 25us or more to make sure KEY_STATE returns to idle state.
-            _delay_us(75);
+			_delay_us(17);
         }
         if (matrix[row] ^ matrix_prev[row]) {
             matrix_last_modified = timer_read32();
