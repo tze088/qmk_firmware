@@ -8,7 +8,7 @@
 
 #ifdef USE_I2C
 
-// Limits the amount of we wait for any one i2c transaction.
+// Limits the amount of time we wait for any one i2c transaction.
 // Since were running SCL line 100kHz (=> 10μs/bit), and each transactions is
 // 9 bits, a single transaction will take around 90μs to complete.
 //
