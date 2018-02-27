@@ -137,6 +137,10 @@ uint8_t matrix_scan(void)
         for (row = 0; row < MATRIX_ROWS; row++) {
             //KEY_SELECT(row, col);
             SET_ROW(row);
+			
+			if (matrix_prev[row] & (1<<col)) {
+                KEY_HYS_ON();
+            }
             
             // NOTE: KEY_STATE is valid only in 20us after KEY_ENABLE.
             // If V-USB interrupts in this section we could lose 40us or so
@@ -158,11 +162,12 @@ uint8_t matrix_scan(void)
                 matrix[row] = matrix_prev[row];
             }
 
+			KEY_HYS_OFF();
             KEY_UNABLE();
 
             // NOTE: KEY_STATE keep its state in 20us after KEY_ENABLE.
             // This takes 25us or more to make sure KEY_STATE returns to idle state.
-            _delay_us(17);
+            _delay_us(16);
         }
         if (matrix[row] ^ matrix_prev[row]) {
             matrix_last_modified = timer_read32();
